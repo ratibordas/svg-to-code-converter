@@ -5,10 +5,12 @@
   "scripts": {
     "dev": "astro dev",
     "build": "ASTRO_TELEMETRY_DISABLED=1 astro build",
-    "preview": "astro preview"
+    "preview": "astro preview",
+    "deploy": "npm run build && gh-pages -d dist"
   },
   "dependencies": {},
   "devDependencies": {
-    "astro": "^4.16.0"
+    "astro": "^4.16.0",
+    "gh-pages": "^6.1.1"
   }
 }

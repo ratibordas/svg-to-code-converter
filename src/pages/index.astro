@@ -38,7 +38,10 @@ const title = 'SVG to CSS URL Encoder';
           <div class="container">
             <div class="container__head">
               <h2>Insert SVG</h2>
-              <button type="button" class="btn btn--ghost" id="example-btn">Example</button>
+              <div class="container__actions">
+                <button type="button" class="btn btn--ghost" id="example-btn">Example</button>
+                <button type="button" class="btn btn--ghost" id="clear-btn">Clear</button>
+              </div>
             </div>
             <textarea name="init" id="init" spellcheck="false" placeholder="Paste or drop SVG here…" rows="8"></textarea>
           </div>
@@ -86,16 +89,17 @@ const title = 'SVG to CSS URL Encoder';
 
     <script>
       const doc = document;
-      const initTextarea = doc.getElementById('init');
-      const resultTextarea = doc.getElementById('result');
-      const resultCssTextarea = doc.getElementById('result-css');
-      const resultDemo = doc.getElementById('demo');
-      const demoWrapper = doc.getElementById('demo-wrapper');
-      const contrastButtons = doc.querySelectorAll('.contrast-button');
+      const initTextarea = doc.getElementById('init') as HTMLTextAreaElement;
+      const resultTextarea = doc.getElementById('result') as HTMLTextAreaElement;
+      const resultCssTextarea = doc.getElementById('result-css') as HTMLTextAreaElement;
+      const resultDemo = doc.getElementById('demo') as HTMLDivElement;
+      const demoWrapper = doc.getElementById('demo-wrapper') as HTMLDivElement;
+      const contrastButtons = doc.querySelectorAll<HTMLElement>('.contrast-button');
       const dropzoneEl = doc.getElementById('dropzone');
 
       const symbols = /[\r\n%#()<>?[\\\]^`{|}]/g;
-      let externalQuotesValue = doc.querySelector('.options__input:checked').value;
+      const quotesInputChecked = doc.querySelector<HTMLInputElement>('.options__input:checked');
+      let externalQuotesValue = quotesInputChecked?.value ?? 'double';
 
       function getQuotes() {
         const d = '"';
@@ -151,7 +155,7 @@ const title = 'SVG to CSS URL Encoder';
         getResults();
       });
 
-      doc.querySelectorAll('.options__input').forEach((input) => {
+      doc.querySelectorAll<HTMLInputElement>('.options__input').forEach((input) => {
         input.addEventListener('change', function () {
           externalQuotesValue = this.value;
           quotes = getQuotes();
@@ -159,30 +163,33 @@ const title = 'SVG to CSS URL Encoder';
         });
       });
 
-      doc.getElementById('example-btn').addEventListener('click', () => {
-        initTextarea.value = `<svg>
-  <circle r="50" cx="50" cy="50" fill="tomato"/>
-  <circle r="41" cx="47" cy="50" fill="orange"/>
-  <circle r="33" cx="48" cy="53" fill="gold"/>
-  <circle r="25" cx="49" cy="51" fill="yellowgreen"/>
-  <circle r="17" cx="52" cy="50" fill="lightseagreen"/>
-  <circle r="9" cx="55" cy="48" fill="teal"/>
+      doc.getElementById('example-btn')!.addEventListener('click', () => {
+        initTextarea.value = `<svg viewBox="0 0 24 24">
+  <path fill="#a78bfa" d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
 </svg>`;
         getResults();
       });
 
-      let contrastButtonCurrent = null;
+      doc.getElementById('clear-btn')!.addEventListener('click', () => {
+        initTextarea.value = '';
+        resultTextarea.value = '';
+        resultCssTextarea.value = '';
+        resultDemo.setAttribute('style', '');
+        getResults();
+      });
+
+      let contrastButtonCurrent: HTMLElement | null = null;
       contrastButtons.forEach((button) => {
         if (!contrastButtonCurrent) {
           contrastButtonCurrent = button;
           button.classList.add('contrast-button--current');
-          demoWrapper.style.background = button.dataset.color;
+          demoWrapper.style.background = button.dataset.color ?? 'white';
         }
-        button.addEventListener('click', function () {
+        button.addEventListener('click', function (this: HTMLElement) {
           contrastButtonCurrent?.classList.remove('contrast-button--current');
           contrastButtonCurrent = this;
           this.classList.add('contrast-button--current');
-          demoWrapper.style.background = this.dataset.color;
+          demoWrapper.style.background = this.dataset.color ?? 'white';
         });
       });
 
@@ -195,12 +202,12 @@ const title = 'SVG to CSS URL Encoder';
         }
       }
 
-      doc.getElementById('copy-result-button').addEventListener('click', () => {
+      doc.getElementById('copy-result-button')!.addEventListener('click', () => {
         const text = resultTextarea.value;
         if (text) copyToClipboard(text);
       });
 
-      doc.getElementById('copy-css-result-button').addEventListener('click', () => {
+      doc.getElementById('copy-css-result-button')!.addEventListener('click', () => {
         const text = resultCssTextarea.value;
         if (text) copyToClipboard(text);
       });
@@ -215,11 +222,11 @@ const title = 'SVG to CSS URL Encoder';
         });
         dropzoneEl.addEventListener('drop', (e) => {
           e.preventDefault();
-          const file = e.dataTransfer.files[0];
+          const file = e.dataTransfer?.files[0];
           if (file?.type === 'image/svg+xml') {
             const reader = new FileReader();
             reader.onload = () => {
-              initTextarea.value = reader.result;
+              initTextarea.value = (reader.result as string) ?? '';
               getResults();
             };
             reader.readAsText(file);
@@ -375,6 +382,12 @@ const title = 'SVG to CSS URL Encoder';
     flex-wrap: wrap;
     gap: 0.5rem;
     margin-bottom: 0.75rem;
+  }
+
+  .container__actions {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
   }
 
   .container h2 {
