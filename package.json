@@ -1,0 +1,14 @@
+{
+  "name": "svg-to-code-converter",
+  "version": "2.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "astro dev",
+    "build": "ASTRO_TELEMETRY_DISABLED=1 astro build",
+    "preview": "astro preview"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "astro": "^4.16.0"
+  }
+}
