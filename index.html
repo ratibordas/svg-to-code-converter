@@ -1,4 +1,273 @@
-<!DOCTYPE html><html lang="en"> <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="icon" href="favicon.svg" type="image/svg+xml"><title>SVG to CSS URL Encoder</title><link rel="stylesheet" href="/svg-to-code-converter/_astro/index.BN1fkB5I.css"><script type="module">const l=document,n=l.getElementById("init"),o=l.getElementById("result"),v=l.getElementById("result-css"),f=l.getElementById("result-jsx"),m=l.getElementById("demo"),E=l.getElementById("demo-wrapper"),L=l.querySelectorAll(".contrast-button"),r=l.getElementById("dropzone"),h=/[\r\n%#()<>?[\\\]^`{|}]/g,w=l.querySelector(".options__input:checked");let p=w?.value??"double";function x(){const e='"',t="'";return{level1:p==="double"?e:t,level2:p==="double"?t:e}}let i=x();function B(e){return e.indexOf("http://www.w3.org/2000/svg")<0&&(e=e.replace(/<svg/g,`<svg xmlns=${i.level2}http://www.w3.org/2000/svg${i.level2}`)),e}function I(e){return p==="double"?e=e.replace(/"/g,"'"):e=e.replace(/'/g,'"'),e=e.replace(/>\s{1,}</g,"><"),e=e.replace(/\s{2,}/g," "),e.replace(h,encodeURIComponent)}function k(e){if(!e.trim())return"";let t=e.trim();t=t.replace(/\sclass=/gi," className="),t=t.replace(/\sfor=/gi," htmlFor=");const s=c=>c.replace(/-([a-z0-9])/gi,(u,b)=>b.toUpperCase());return t=t.replace(/\s([a-z][a-z0-9]*(?:-[a-z0-9]+)+)=/gi,(c,u)=>" "+s(u)+"="),t=t.replace(/\sxmlns="[^"]*"/g,""),t=t.replace(/\sxmlns='[^']*'/g,""),["path","circle","rect","line","ellipse","polyline","polygon","stop","use"].forEach(c=>{const u=new RegExp(`(<${c}[^>]*)\\s*></\\s*${c}\\s*>`,"gi");t=t.replace(u,"$1 />")}),t}function a(){const e=n.value.trim();if(f.value=e?k(e):"",!e){o.value="",v.value="",m.setAttribute("style","");return}const t=B(n.value),s=I(t);o.value=s;const g=`background-image: url(${i.level1}data:image/svg+xml,${s}${i.level1});`;v.value=g,m.setAttribute("style",g)}n.addEventListener("input",a);o.addEventListener("input",()=>{const e=o.value.trim().replace(/background-image:\s{0,}url\(/,"").replace(/["']{0,}data:image\/svg\+xml,/,"").replace(/["']\);{0,}$/,"");n.value=decodeURIComponent(e),a()});l.querySelectorAll(".options__input").forEach(e=>{e.addEventListener("change",function(){p=this.value,i=x(),a()})});l.getElementById("example-btn").addEventListener("click",()=>{n.value=`<svg viewBox="0 0 24 24">
+<!DOCTYPE html><html lang="en"> <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="icon" href="favicon.svg" type="image/svg+xml"><title>SVG to CSS URL Encoder</title><script type="module">const l=document,n=l.getElementById("init"),o=l.getElementById("result"),v=l.getElementById("result-css"),f=l.getElementById("result-jsx"),m=l.getElementById("demo"),E=l.getElementById("demo-wrapper"),L=l.querySelectorAll(".contrast-button"),r=l.getElementById("dropzone"),h=/[\r\n%#()<>?[\\\]^`{|}]/g,w=l.querySelector(".options__input:checked");let p=w?.value??"double";function x(){const e='"',t="'";return{level1:p==="double"?e:t,level2:p==="double"?t:e}}let i=x();function B(e){return e.indexOf("http://www.w3.org/2000/svg")<0&&(e=e.replace(/<svg/g,`<svg xmlns=${i.level2}http://www.w3.org/2000/svg${i.level2}`)),e}function I(e){return p==="double"?e=e.replace(/"/g,"'"):e=e.replace(/'/g,'"'),e=e.replace(/>\s{1,}</g,"><"),e=e.replace(/\s{2,}/g," "),e.replace(h,encodeURIComponent)}function k(e){if(!e.trim())return"";let t=e.trim();t=t.replace(/\sclass=/gi," className="),t=t.replace(/\sfor=/gi," htmlFor=");const s=c=>c.replace(/-([a-z0-9])/gi,(u,b)=>b.toUpperCase());return t=t.replace(/\s([a-z][a-z0-9]*(?:-[a-z0-9]+)+)=/gi,(c,u)=>" "+s(u)+"="),t=t.replace(/\sxmlns="[^"]*"/g,""),t=t.replace(/\sxmlns='[^']*'/g,""),["path","circle","rect","line","ellipse","polyline","polygon","stop","use"].forEach(c=>{const u=new RegExp(`(<${c}[^>]*)\\s*></\\s*${c}\\s*>`,"gi");t=t.replace(u,"$1 />")}),t}function a(){const e=n.value.trim();if(f.value=e?k(e):"",!e){o.value="",v.value="",m.setAttribute("style","");return}const t=B(n.value),s=I(t);o.value=s;const g=`background-image: url(${i.level1}data:image/svg+xml,${s}${i.level1});`;v.value=g,m.setAttribute("style",g)}n.addEventListener("input",a);o.addEventListener("input",()=>{const e=o.value.trim().replace(/background-image:\s{0,}url\(/,"").replace(/["']{0,}data:image\/svg\+xml,/,"").replace(/["']\);{0,}$/,"");n.value=decodeURIComponent(e),a()});l.querySelectorAll(".options__input").forEach(e=>{e.addEventListener("change",function(){p=this.value,i=x(),a()})});l.getElementById("example-btn").addEventListener("click",()=>{n.value=`<svg viewBox="0 0 24 24">
   <path fill="#a78bfa" d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
 </svg>`,a()});l.getElementById("clear-btn").addEventListener("click",()=>{n.value="",o.value="",v.value="",f.value="",m.setAttribute("style",""),a()});let d=null;L.forEach(e=>{d||(d=e,e.classList.add("contrast-button--current"),E.style.background=e.dataset.color??"white"),e.addEventListener("click",function(){d?.classList.remove("contrast-button--current"),d=this,this.classList.add("contrast-button--current"),E.style.background=this.dataset.color??"white"})});async function y(e){try{return await navigator.clipboard.writeText(e),!0}catch{return!1}}l.getElementById("copy-result-button").addEventListener("click",()=>{const e=o.value;e&&y(e)});l.getElementById("copy-css-result-button").addEventListener("click",()=>{const e=v.value;e&&y(e)});l.getElementById("copy-jsx-button").addEventListener("click",()=>{const e=f.value;e&&y(e)});r&&(l.addEventListener("dragover",e=>{e.preventDefault(),r.classList.add("dropzone--active")}),r.addEventListener("dragleave",()=>{r.classList.remove("dropzone--active")}),r.addEventListener("drop",e=>{e.preventDefault();const t=e.dataTransfer?.files[0];if(t?.type==="image/svg+xml"){const s=new FileReader;s.onload=()=>{n.value=s.result??"",a()},s.readAsText(t)}r.classList.remove("dropzone--active")}));
-</script></head> <body> <div class="wrapper"> <header class="header"> <h1>SVG to CSS URL Encoder</h1> <p class="tagline">Encode SVG for use in CSS <code>background-image</code>, <code>border-image</code>, or <code>mask</code></p> </header> <main> <section class="panel"> <div class="options"> <span class="options__label">External quotes:</span> <label class="options__radio"> <input type="radio" value="single" name="quotes" class="options__input"> <span>single</span> </label> <label class="options__radio"> <input type="radio" value="double" name="quotes" class="options__input" checked> <span>double</span> </label> </div> <div class="about__content"> <p>SVG in CSS via data URI works in all browsers only when encoded. This tool uses <code>encodeURIComponent()</code> so the result works everywhere.</p> <p>SVG must have <code>xmlns='http://www.w3.org/2000/svg'</code>. If missing, it is added automatically.</p> <p>Encoded SVG can be used in <code>background</code>, <code>border-image</code>, or <code>mask</code>.</p> </div> </section> <section class="insert-svg-section"> <div class="container"> <div class="container__head"> <h2>Insert SVG</h2> <div class="container__actions"> <button type="button" class="btn btn--ghost" id="example-btn">Example</button> <button type="button" class="btn btn--ghost" id="clear-btn">Clear</button> </div> </div> <textarea name="init" id="init" spellcheck="false" placeholder="Paste or drop SVG here…" rows="8"></textarea> </div> </section> <section class="containers"> <div class="container"> <div class="container__head"> <h2>SVG to JSX</h2> <button type="button" class="btn btn--ghost" id="copy-jsx-button" title="Copy to clipboard">Copy</button> </div> <textarea name="result-jsx" id="result-jsx" spellcheck="false" readonly rows="8" placeholder="JSX output appears here"></textarea> </div> <div class="container"> <div class="container__head"> <h2>Encoded result</h2> <button type="button" class="btn btn--ghost" id="copy-result-button" title="Copy to clipboard">Copy</button> </div> <textarea name="result" id="result" spellcheck="false" rows="8" placeholder="Encoded output or paste here to decode"></textarea> <p class="tip">Paste encoded SVG here to decode it back.</p> </div> </section> <section class="containers"> <div class="container"> <div class="container__head"> <h2>Ready for CSS</h2> <button type="button" class="btn btn--ghost" id="copy-css-result-button" title="Copy to clipboard">Copy</button> </div> <textarea name="result-css" id="result-css" spellcheck="false" readonly rows="4"></textarea> </div> <div class="container container--preview"> <div class="container__head"> <h2>Preview</h2> <div class="contrast-buttons" aria-label="Preview background"> <span class="contrast-buttons__label">Background:</span> <button type="button" class="contrast-button contrast-button--white" data-color="white" title="White"><span class="sr-only">White</span></button> <button type="button" class="contrast-button contrast-button--silver" data-color="silver" title="Silver"><span class="sr-only">Silver</span></button> <button type="button" class="contrast-button contrast-button--black" data-color="black" title="Black"><span class="sr-only">Black</span></button> </div> </div> <div class="demo-wrapper" id="demo-wrapper"> <div id="demo" class="demo"></div> </div> </div> </section> </main> </div> <div id="dropzone" class="dropzone" aria-hidden="true"> <span class="dropzone__text">Drop SVG file here</span> </div>  </body> </html> 
+</script></head> <body> <div class="wrapper"> <header class="header"> <h1>SVG to CSS URL Encoder</h1> <p class="tagline">Encode SVG for use in CSS <code>background-image</code>, <code>border-image</code>, or <code>mask</code></p> </header> <main> <section class="panel"> <div class="options"> <span class="options__label">External quotes:</span> <label class="options__radio"> <input type="radio" value="single" name="quotes" class="options__input"> <span>single</span> </label> <label class="options__radio"> <input type="radio" value="double" name="quotes" class="options__input" checked> <span>double</span> </label> </div> <div class="about__content"> <p>SVG in CSS via data URI works in all browsers only when encoded. This tool uses <code>encodeURIComponent()</code> so the result works everywhere.</p> <p>SVG must have <code>xmlns='http://www.w3.org/2000/svg'</code>. If missing, it is added automatically.</p> <p>Encoded SVG can be used in <code>background</code>, <code>border-image</code>, or <code>mask</code>.</p> </div> </section> <section class="insert-svg-section"> <div class="container"> <div class="container__head"> <h2>Insert SVG</h2> <div class="container__actions"> <button type="button" class="btn btn--ghost" id="example-btn">Example</button> <button type="button" class="btn btn--ghost" id="clear-btn">Clear</button> </div> </div> <textarea name="init" id="init" spellcheck="false" placeholder="Paste or drop SVG here…" rows="8"></textarea> </div> </section> <section class="containers"> <div class="container"> <div class="container__head"> <h2>SVG to JSX</h2> <button type="button" class="btn btn--ghost" id="copy-jsx-button" title="Copy to clipboard">Copy</button> </div> <textarea name="result-jsx" id="result-jsx" spellcheck="false" readonly rows="8" placeholder="JSX output appears here"></textarea> </div> <div class="container"> <div class="container__head"> <h2>Encoded result</h2> <button type="button" class="btn btn--ghost" id="copy-result-button" title="Copy to clipboard">Copy</button> </div> <textarea name="result" id="result" spellcheck="false" rows="8" placeholder="Encoded output or paste here to decode"></textarea> <p class="tip">Paste encoded SVG here to decode it back.</p> </div> </section> <section class="containers"> <div class="container"> <div class="container__head"> <h2>Ready for CSS</h2> <button type="button" class="btn btn--ghost" id="copy-css-result-button" title="Copy to clipboard">Copy</button> </div> <textarea name="result-css" id="result-css" spellcheck="false" readonly rows="4"></textarea> </div> <div class="container container--preview"> <div class="container__head"> <h2>Preview</h2> <div class="contrast-buttons" aria-label="Preview background"> <span class="contrast-buttons__label">Background:</span> <button type="button" class="contrast-button contrast-button--white" data-color="white" title="White"><span class="sr-only">White</span></button> <button type="button" class="contrast-button contrast-button--silver" data-color="silver" title="Silver"><span class="sr-only">Silver</span></button> <button type="button" class="contrast-button contrast-button--black" data-color="black" title="Black"><span class="sr-only">Black</span></button> </div> </div> <div class="demo-wrapper" id="demo-wrapper"> <div id="demo" class="demo"></div> </div> </div> </section> </main> </div> <div id="dropzone" class="dropzone" aria-hidden="true"> <span class="dropzone__text">Drop SVG file here</span> </div>  </body> </html> <style is:global>
+  :root {
+    --bg: #0f0f12;
+    --surface: #18181c;
+    --border: #2a2a30;
+    --text: #e4e4e7;
+    --text-muted: #a1a1aa;
+    --accent: #a78bfa;
+    --accent-hover: #c4b5fd;
+    --code-bg: #27272a;
+    --white: #ffffff;
+    --silver: #c0c0c0;
+    --black: #0a0a0a;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; }
+
+  html {
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    font-size: 16px;
+    line-height: 1.5;
+    color: var(--text);
+    background: var(--bg);
+  }
+
+  body { margin: 0; min-height: 100vh; }
+
+  .sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+  }
+
+  code {
+    font-family: ui-monospace, 'Cascadia Code', 'Source Code Pro', Menlo, monospace;
+    font-size: 0.9em;
+    padding: 0.15em 0.4em;
+    background: var(--code-bg);
+    border-radius: 4px;
+    color: var(--accent);
+  }
+
+  .wrapper {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem 1.5rem 4rem;
+  }
+
+  .header {
+    text-align: center;
+    margin-bottom: 2.5rem;
+  }
+
+  .header h1 {
+    font-size: clamp(1.75rem, 4vw, 2.25rem);
+    font-weight: 700;
+    margin: 0 0 0.5rem;
+    letter-spacing: -0.02em;
+  }
+
+  .tagline {
+    margin: 0;
+    color: var(--text-muted);
+    font-size: 0.95rem;
+  }
+
+  .tagline code { font-size: 0.85em; }
+
+  .panel {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 1rem 2rem;
+    margin-bottom: 2rem;
+  }
+
+  .options {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+
+  .options__label { color: var(--text-muted); font-size: 0.9rem; }
+  .options__radio { cursor: pointer; font-size: 0.9rem; }
+  .options__radio span { text-decoration: underline; text-underline-offset: 2px; }
+  .options__input:checked + span { text-decoration: none; color: var(--accent); }
+
+  .about {
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    background: var(--surface);
+  }
+
+  .about__summary {
+    padding: 0.6rem 1rem;
+    cursor: pointer;
+    list-style: none;
+    font-size: 0.9rem;
+    color: var(--text-muted);
+  }
+  .about__summary::-webkit-details-marker { display: none; }
+  .about__summary::before { content: '▶ '; font-size: 0.6em; }
+  .about[open] .about__summary::before { content: '▼ '; }
+
+  .about__content {
+    padding: 0 1rem 1rem;
+    border-top: 1px solid var(--border);
+  }
+  .about__content p { margin: 0.75rem 0 0; font-size: 0.9rem; color: var(--text-muted); }
+  .about__content p:first-child { margin-top: 0.75rem; }
+
+  .insert-svg-section {
+    margin-bottom: 1.5rem;
+  }
+
+  .containers {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+    margin-bottom: 1.5rem;
+  }
+
+  @media (max-width: 900px) {
+    .containers { grid-template-columns: 1fr; }
+  }
+
+  .container {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 1rem 1.25rem;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .container__head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .container__actions {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .container h2 {
+    margin: 0;
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--text);
+  }
+
+  .btn {
+    font: inherit;
+    font-size: 0.85rem;
+    padding: 0.35rem 0.75rem;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    background: transparent;
+    color: var(--accent);
+  }
+  .btn:hover { color: var(--accent-hover); }
+
+  textarea {
+    width: 100%;
+    min-height: 140px;
+    padding: 0.75rem;
+    font-family: ui-monospace, 'Cascadia Code', 'Source Code Pro', Menlo, monospace;
+    font-size: 13px;
+    line-height: 1.5;
+    color: var(--text);
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    resize: vertical;
+  }
+  textarea::placeholder { color: var(--text-muted); opacity: 0.7; }
+  textarea[readonly] { opacity: 0.95; }
+
+  .tip {
+    margin: 0.5rem 0 0;
+    font-size: 0.8rem;
+    color: var(--text-muted);
+  }
+
+  .container--preview .container__head {
+    flex-wrap: wrap;
+  }
+
+  .contrast-buttons {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .contrast-buttons__label {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+  }
+
+  .contrast-button {
+    width: 28px;
+    height: 28px;
+    padding: 0;
+    border: 2px solid var(--border);
+    border-radius: 50%;
+    cursor: pointer;
+    transition: box-shadow 0.15s, transform 0.1s;
+  }
+  .contrast-button:hover { transform: scale(1.08); }
+  .contrast-button--current { box-shadow: 0 0 0 2px var(--bg), 0 0 0 4px var(--accent); }
+  .contrast-button--white { background: var(--white); }
+  .contrast-button--silver { background: var(--silver); }
+  .contrast-button--black { background: var(--black); }
+
+  .demo-wrapper {
+    margin-top: 0.5rem;
+    border: 1px dashed var(--border);
+    border-radius: 8px;
+    min-height: 160px;
+    background: white;
+  }
+
+  .demo {
+    width: 100%;
+    min-height: 160px;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+  }
+
+  .dropzone {
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(15, 15, 18, 0.85);
+    backdrop-filter: blur(8px);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.2s;
+  }
+
+  .dropzone--active {
+    opacity: 1;
+    pointer-events: all;
+  }
+
+  .dropzone__text {
+    font-size: 1.1rem;
+    color: var(--text-muted);
+    padding: 2rem;
+    border: 2px dashed var(--border);
+    border-radius: 12px;
+  }
+</style>
