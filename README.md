@@ -1,11 +1,15 @@
-# SVG to CSS URL Encoder
+# SVG to Code Converter
 
-Encode SVG for use in CSS as a data URI. Works in all browsers when used in `background-image`, `border-image`, or `mask`.
+Convert SVG to **CSS URL** (data URI) and to **JSX** for React. Use in `background-image`, `border-image`, `mask`, or as inline SVG components.
+
+## Live Demo
+🔗 [**Try it here**](https://ratibordas.github.io/svg-to-code-converter/)
 
 ## Features
 
-- **Insert SVG** — Paste or drop an SVG file; use **Example** to load a sample.
-- **Encoded result** — Live encoded output; copy or paste encoded SVG here to decode.
+- **Insert SVG** — Paste or drop an SVG file; use **Example** to load a sample, **Clear** to reset.
+- **SVG to JSX** — Live conversion to React/JSX: `class` → `className`, kebab-case attributes → camelCase, self-closing tags. Copy the result into your component.
+- **Encoded result** — Live encoded output for CSS; copy or paste encoded SVG here to decode.
 - **Ready for CSS** — Full `background-image: url(...)` line ready to copy.
 - **Preview** — See the result with white, silver, or black background.
 - **Quote style** — Choose single or double quotes for the generated CSS.

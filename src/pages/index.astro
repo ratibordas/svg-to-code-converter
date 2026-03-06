@@ -6,6 +6,7 @@ const title = 'SVG to CSS URL Encoder';
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="icon" href="favicon.svg" type="image/svg+xml" />
     <title>{title}</title>
   </head>
   <body>
@@ -34,7 +35,8 @@ const title = 'SVG to CSS URL Encoder';
               <p>Encoded SVG can be used in <code>background</code>, <code>border-image</code>, or <code>mask</code>.</p>
             </div>
         </section>
-        <section class="containers">
+
+        <section class="insert-svg-section">
           <div class="container">
             <div class="container__head">
               <h2>Insert SVG</h2>
@@ -44,6 +46,16 @@ const title = 'SVG to CSS URL Encoder';
               </div>
             </div>
             <textarea name="init" id="init" spellcheck="false" placeholder="Paste or drop SVG here…" rows="8"></textarea>
+          </div>
+        </section>
+
+        <section class="containers">
+          <div class="container">
+            <div class="container__head">
+              <h2>SVG to JSX</h2>
+              <button type="button" class="btn btn--ghost" id="copy-jsx-button" title="Copy to clipboard">Copy</button>
+            </div>
+            <textarea name="result-jsx" id="result-jsx" spellcheck="false" readonly rows="8" placeholder="JSX output appears here"></textarea>
           </div>
 
           <div class="container">
@@ -92,6 +104,7 @@ const title = 'SVG to CSS URL Encoder';
       const initTextarea = doc.getElementById('init') as HTMLTextAreaElement;
       const resultTextarea = doc.getElementById('result') as HTMLTextAreaElement;
       const resultCssTextarea = doc.getElementById('result-css') as HTMLTextAreaElement;
+      const resultJsxTextarea = doc.getElementById('result-jsx') as HTMLTextAreaElement;
       const resultDemo = doc.getElementById('demo') as HTMLDivElement;
       const demoWrapper = doc.getElementById('demo-wrapper') as HTMLDivElement;
       const contrastButtons = doc.querySelectorAll<HTMLElement>('.contrast-button');
@@ -130,8 +143,28 @@ const title = 'SVG to CSS URL Encoder';
         return data.replace(symbols, encodeURIComponent);
       }
 
+      function svgToJSX(svg: string): string {
+        if (!svg.trim()) return '';
+        let jsx = svg.trim();
+        jsx = jsx.replace(/\sclass=/gi, ' className=');
+        jsx = jsx.replace(/\sfor=/gi, ' htmlFor=');
+        const kebabToCamel = (s: string) => s.replace(/-([a-z0-9])/gi, (_, c) => c.toUpperCase());
+        jsx = jsx.replace(/\s([a-z][a-z0-9]*(?:-[a-z0-9]+)+)=/gi, (_, attr) => ' ' + kebabToCamel(attr) + '=');
+        jsx = jsx.replace(/\sxmlns="[^"]*"/g, '');
+        jsx = jsx.replace(/\sxmlns='[^']*'/g, '');
+        const selfClose = ['path', 'circle', 'rect', 'line', 'ellipse', 'polyline', 'polygon', 'stop', 'use'];
+        selfClose.forEach(tag => {
+          const re = new RegExp(`(<${tag}[^>]*)\\s*></\\s*${tag}\\s*>`, 'gi');
+          jsx = jsx.replace(re, '$1 />');
+        });
+        return jsx;
+      }
+
       function getResults() {
-        if (!initTextarea.value.trim()) {
+        const raw = initTextarea.value.trim();
+        resultJsxTextarea.value = raw ? svgToJSX(raw) : '';
+        if (!raw) {
+          resultTextarea.value = '';
           resultCssTextarea.value = '';
           resultDemo.setAttribute('style', '');
           return;
@@ -174,6 +207,7 @@ const title = 'SVG to CSS URL Encoder';
         initTextarea.value = '';
         resultTextarea.value = '';
         resultCssTextarea.value = '';
+        resultJsxTextarea.value = '';
         resultDemo.setAttribute('style', '');
         getResults();
       });
@@ -209,6 +243,11 @@ const title = 'SVG to CSS URL Encoder';
 
       doc.getElementById('copy-css-result-button')!.addEventListener('click', () => {
         const text = resultCssTextarea.value;
+        if (text) copyToClipboard(text);
+      });
+
+      doc.getElementById('copy-jsx-button')!.addEventListener('click', () => {
+        const text = resultJsxTextarea.value;
         if (text) copyToClipboard(text);
       });
 
@@ -354,6 +393,10 @@ const title = 'SVG to CSS URL Encoder';
   }
   .about__content p { margin: 0.75rem 0 0; font-size: 0.9rem; color: var(--text-muted); }
   .about__content p:first-child { margin-top: 0.75rem; }
+
+  .insert-svg-section {
+    margin-bottom: 1.5rem;
+  }
 
   .containers {
     display: grid;
